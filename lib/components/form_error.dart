@@ -4,9 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 class FormError extends StatelessWidget {
   const FormError({
     Key? key,
-     required this.error,
+    required this.error,
   }) : super(key: key);
-
 
   final String error;
 
@@ -18,15 +17,13 @@ class FormError extends StatelessWidget {
   Row formErrorText({required String error}) {
     return Row(
       children: [
-        SvgPicture.asset(
-          "assets/icons/Error.svg",
-          height: 16,
-          width: 16,
-        ),
         const SizedBox(
           width: 10,
         ),
-        Text(error),
+        Text(
+          error,
+          style: TextStyle(color: Colors.red),
+        ),
       ],
     );
   }

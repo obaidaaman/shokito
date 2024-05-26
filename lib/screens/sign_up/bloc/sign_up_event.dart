@@ -5,15 +5,21 @@ sealed class SignUpEvent {}
 
 
 class TextFieldChangeEvent extends SignUpEvent{
-  final String name;
+
   final String email;
   final String password;
 
 
-  TextFieldChangeEvent(this.name, this.email, this.password);
+  TextFieldChangeEvent( this.email, this.password);
 }
 
 class SignUpButtonClickedEvent extends SignUpEvent{
 
+  final String name;
+  final String email;
+  final String password;
+  final String address;
+
+  SignUpButtonClickedEvent(this.name, this.email, this.password, this.address);
 }
 

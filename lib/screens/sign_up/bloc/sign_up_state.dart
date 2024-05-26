@@ -10,7 +10,10 @@ final class SignUpLoading extends SignUpState{
 
 }
 
-final class SignUpLoaded extends SignUpState{
+final class SignUpSubmitted extends SignUpState{
+  final String? id;
+
+  SignUpSubmitted({required this.id});
 
 }
 
