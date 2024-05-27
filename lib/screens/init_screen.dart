@@ -8,8 +8,8 @@ import 'package:shop_app/screens/profile/profile_screen.dart';
 const Color inActiveIconColor = Color(0xFFB6B6B6);
 
 class InitScreen extends StatefulWidget {
-  final String UserId;
-  const InitScreen({super.key, required this.UserId, });
+
+  const InitScreen({super.key,});
 
   static String routeName = "/";
 

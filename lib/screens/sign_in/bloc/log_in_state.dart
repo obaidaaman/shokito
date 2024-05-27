@@ -16,9 +16,6 @@ final class TextChangeInvalidState extends LogInState{
 }
 
 final class LogInSuccessState extends LogInState{
-  final UserModel user;
-
-  LogInSuccessState(this.user);
 
 }
 final class LogInErrorState extends LogInState{

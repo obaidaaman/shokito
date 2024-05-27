@@ -7,18 +7,18 @@ import 'package:shop_app/models/sign_up.dart';
 class LogInRepo {
 
 
-  static Future<String?> LogIn(String username, String password) async {
+  static Future<String?> LogIn(String email, String password) async {
 
-    final url = Uri.parse('https://fakestoreapi.com/auth/login');
+    final url = Uri.parse('https://api.escuelajs.co/api/v1/auth/login');
     final response = await http.post(url,body: jsonEncode({
-      "username" : username,
+      "email" : email,
       "password" : password
     }));
 
 
     if(response.statusCode == 201 || response.statusCode == 200){
       var data = json.decode(response.body);
-      return data['token'];
+      return data['access_token'];
     }
     else{
       print('Failed to log in: ${response.statusCode}');
@@ -29,13 +29,13 @@ class LogInRepo {
   }
   
   static Future<UserModel?> getCurrentUser(String token) async {
-    final response = await http.get(Uri.parse('https://fakestoreapi.com/users'),
-    headers: <String,String>{
+    final response = await http.get(Uri.parse('https://api.escuelajs.co/api/v1/auth/profile'),
+    headers:{
       'Authorization' : 'Bearer $token'
     });
 
     if(response.statusCode == 200){
-      return UserModel.fromJson(json.decode(response.body)[0]);
+      return userModelFromJson(response.body);
     }
     else{
       print('Failed to fetch user: ${response.statusCode}');

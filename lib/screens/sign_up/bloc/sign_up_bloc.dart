@@ -34,10 +34,11 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     emit(SignUpLoading());
 
     try {
-    var response =   await Signuprepo.signUpUser(event.name, event.email, event.password);
+      var response =
+          await Signuprepo.signUpUser(event.name, event.email, event.password);
       emit(SignUpSubmitted(id: response?.id.toString()));
     } catch (e) {
-      print('api error');
+      emit(SignUpError(e.toString()));
     }
   }
 }

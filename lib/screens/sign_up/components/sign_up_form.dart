@@ -30,11 +30,7 @@ class _SignUpFormState extends State<SignUpForm> {
       listener: (context, state) {
         if (state is SignUpSubmitted) {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => InitScreen(
-                        UserId: state.id.toString(),
-                      )));
+              context, MaterialPageRoute(builder: (context) => InitScreen()));
         }
       },
       builder: (context, state) {
