@@ -22,6 +22,14 @@ class _SignFormState extends State<SignForm> {
   final _passwordController = TextEditingController();
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+     _emailController.clear();
+     _passwordController.clear();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<LogInBloc, LogInState>(
       listener: (context, state) {
@@ -38,8 +46,8 @@ class _SignFormState extends State<SignForm> {
               onChanged: (value) {},
               controller: _emailController,
               decoration: const InputDecoration(
-                labelText: "username",
-                hintText: "Enter your username",
+                labelText: "email",
+                hintText: "Enter your email",
                 // If  you are using latest version of flutter then lable text and hint text shown like this
                 // if you r using flutter less then 1.20.* then maybe this is not working properly
                 floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -80,19 +88,25 @@ class _SignFormState extends State<SignForm> {
                 )
               ],
             ),
-            FormError(error: ''),
+            (state is LogInErrorState)
+                ? FormError(error: state.error)
+                : FormError(error: ''),
             const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                BlocProvider.of<LogInBloc>(context).add(
-                    SignInButtonClickedEvent(
-                        _emailController.text, _passwordController.text)
-                );
-                KeyboardUtil.hideKeyboard(context);
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-              },
-              child: const Text("Continue"),
-            ),
+            (state is !LogInLoadingState)
+                ? ElevatedButton(
+                    onPressed: () {
+                      BlocProvider.of<LogInBloc>(context).add(
+                          SignInButtonClickedEvent(
+                              _emailController.text, _passwordController.text));
+                      KeyboardUtil.hideKeyboard(context);
+                    },
+                    child: const Text("Continue"),
+                  )
+                : Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.deepOrange,
+                    ),
+                  ),
           ],
         );
       },
