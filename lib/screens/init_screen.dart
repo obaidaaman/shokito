@@ -28,7 +28,7 @@ class _InitScreenState extends State<InitScreen> {
 
   final pages = [
     const HomeScreen(),
-    const FavoriteScreen(),
+ //   const FavoriteScreen(),
     const Center(
       child: Text("Chat"),
     ),

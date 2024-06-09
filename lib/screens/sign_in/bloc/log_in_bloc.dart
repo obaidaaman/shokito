@@ -37,6 +37,7 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
   Future<void> _storeToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
 
+    token = token.trim();
     await prefs.setString('token', token);
   }
 }

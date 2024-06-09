@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants.dart';
+import '../init_screen.dart';
 import '../sign_in/sign_in_screen.dart';
 import 'components/splash_content.dart';
 
@@ -14,6 +16,28 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _checkLoginStatus();
+  }
+
+
+  Future<void> _checkLoginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token != null) {
+      Navigator.pushReplacementNamed(context, InitScreen.routeName);
+    } else {
+      Navigator.pushReplacementNamed(context, SignInScreen.routeName);
+    }
+  }
+
+
+
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
