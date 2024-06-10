@@ -8,8 +8,9 @@ final class HomeInitial extends HomeState {}
 
 final class PopularProductsSuccessState extends HomeState{
   final List<ProductModel> productsList;
+  final List<CategoriesModel> categoriesList;
 
-  PopularProductsSuccessState(this.productsList);
+  PopularProductsSuccessState(this.productsList, this.categoriesList);
 }
 final class PopularProductsLoadingState extends HomeState{
 

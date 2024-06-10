@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       HomeHeader(),
                       DiscountBanner(),
-                      Categories(),
+                      Categories(categoryList: state.categoriesList,),
                       SpecialOffers(),
                       SizedBox(height: 20),
                       PopularProducts(

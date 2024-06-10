@@ -15,7 +15,7 @@ class ProductCard extends StatelessWidget {
   }) : super(key: key);
 
   final double width, aspectRetio;
-  final ProductModel? product;
+  final ProductModel product;
   final VoidCallback onPress;
 
   @override
@@ -35,12 +35,12 @@ class ProductCard extends StatelessWidget {
                   color: kSecondaryColor.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Image(image: NetworkImage(product!.images[0]),),
+                child: Image(image: NetworkImage(product.images[0]),),
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              product!.title,
+              product.title,
               style: Theme.of(context).textTheme.bodyMedium,
               maxLines: 2,
             ),
@@ -48,7 +48,7 @@ class ProductCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "\$${product!.price}",
+                  "\$${product.price}",
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,

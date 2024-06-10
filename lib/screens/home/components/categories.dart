@@ -1,33 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shop_app/models/category_model.dart';
 
 class Categories extends StatelessWidget {
-  const Categories({super.key});
+  final List<CategoriesModel> categoryList;
+
+  const Categories({super.key, required this.categoryList});
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> categories = [
-      {"icon": "assets/icons/Flash Icon.svg", "text": "Flash Deal"},
-      {"icon": "assets/icons/Bill Icon.svg", "text": "Bill"},
-      {"icon": "assets/icons/Game Icon.svg", "text": "Game"},
-      {"icon": "assets/icons/Gift Icon.svg", "text": "Daily Gift"},
-      {"icon": "assets/icons/Discover.svg", "text": "More"},
-    ];
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(
-          categories.length,
-          (index) => CategoryCard(
-            icon: categories[index]["icon"],
-            text: categories[index]["text"],
-            press: () {},
-          ),
-        ),
-      ),
-    );
+
+    return  CategoriesProducts(categories: categoryList);
   }
 }
 
@@ -44,6 +27,7 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
       onTap: press,
       child: Column(
@@ -56,11 +40,96 @@ class CategoryCard extends StatelessWidget {
               color: const Color(0xFFFFECDF),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: SvgPicture.asset(icon),
+            child: Image(
+              image: NetworkImage(icon),
+            ),
           ),
           const SizedBox(height: 4),
-          Text(text, textAlign: TextAlign.center)
+          Text(text, textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,)
         ],
+      ),
+    );
+  }
+}
+
+class VerticalImageText extends StatelessWidget {
+  const VerticalImageText({
+    super.key,
+    required this.title,
+    required this.image,
+    this.onTap,
+    this.textColor = Colors.black,
+    this.backgroundColor,
+  });
+
+  final String title, image;
+
+  final Color textColor;
+  final Color? backgroundColor;
+  final void Function()? onTap;
+  @override
+  Widget build(BuildContext context) {
+
+    return GestureDetector(
+      child: Padding(
+        padding: const EdgeInsets.only(right: 14),
+        child: Column(
+          children: [
+            Container(
+              width: 56,
+              height: 56,
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: Image(
+                image: NetworkImage(image),
+                fit: BoxFit.cover,
+
+              ),
+            ),
+            SizedBox(
+              width: 55,
+              child: Text(
+                title,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: Theme.of(context)
+                    .textTheme
+                    .labelMedium!
+                    .apply(color: textColor),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CategoriesProducts extends StatelessWidget {
+
+  final List<CategoriesModel> categories;
+  const CategoriesProducts({
+    super.key, required this.categories
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 80,
+      child: ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return VerticalImageText(
+            image: categories[index].image,
+            title: categories[index].name,
+            onTap: () {},
+          );
+        },
+        itemCount: categories.length,
       ),
     );
   }
