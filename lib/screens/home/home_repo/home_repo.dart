@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import '../../../models/category_model.dart';
 import '../../../models/product_model.dart';
 
@@ -39,7 +38,8 @@ class HomeRepo {
   }
 
   Future<List<CategoriesModel>> fetchCategories() async {
-    final uri = Uri.parse('https://api.escuelajs.co/api/v1/categories?offset=0&limit=5');
+    final uri = Uri.parse(
+        'https://api.escuelajs.co/api/v1/categories?offset=0&limit=5');
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       final categoryList = categoriesFromJson(response.body);

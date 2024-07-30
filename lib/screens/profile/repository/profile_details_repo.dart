@@ -1,21 +1,17 @@
-import 'dart:convert';
-
-import '../../../models/sign_up.dart';
-
+import 'package:shop_app/screens/profile/model/profile_model.dart';
 import 'package:http/http.dart' as http;
 
 class ProfileDetailsRepository {
-  static Future<UserModel?> getUserDetails(String token) async {
-    final url = Uri.parse('https://api.escuelajs.co/api/v1/auth/profile');
+  static Future<ProfileModel?> getUserDetails() async {
+    final url = Uri.parse('https://fakestoreapi.com/users/1');
 
     try {
-      final response =
-          await http.get(url, headers: {"Authorization": "Bearer ${token.toString()}"});
+      final response = await http.get(url);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        return userModelFromJson(response.body);
+        print(response.body);
+        return profileModelFromJson(response.body);
       } else {
-        
         print('Failed to get user: ${response.statusCode}');
         print('Response body: ${response.body}');
         return null;
